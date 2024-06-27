@@ -36,7 +36,7 @@ export default function App() {
 
   // Effect to handle subscription on mount and unmount
   useEffect(() => {
-    sendStart('Get the blue box to the green goal without touching a red box to win. GOOD LUCK!', 'PLAY!');
+    sendStart('Tilt your phone to get the blue box to the green goal without touching a red box. GOOD LUCK!', 'PLAY!');
     return () => {
       _unsubscribe();
     };
@@ -100,19 +100,15 @@ export default function App() {
       );
     }
 
-    if (
-      checkCollision(boxes[0]) ||
-      checkCollision(boxes[1]) ||
-      checkCollision(boxes[2]) ||
-      checkCollision(boxes[3]) ||
-      checkCollision(boxes[3]) ||
-      checkCollision(boxes[4]) ||
-      checkCollision(boxes[5]) ||
-      checkCollision(boxes[6]) ||
-      checkCollision(boxes[7]) ||
-      checkCollision(boxes[8]) ||
-      checkCollision(boxes[9])
-    ) {
+    let collisionDetected = false;
+
+    for(let i = 0; i < boxes.length; i++){
+      if(checkCollision(boxes[i])){
+        collisionDetected = true;
+      }
+    }
+
+    if (collisionDetected) {
       sendAlert('YOU LOSE!', 'Try Again');
     }
     if (position.y >= screenHeight - 100) {
@@ -129,7 +125,7 @@ export default function App() {
         text: answer,
         onPress: () => {
           setIsPaused(false);
-          sendStart('Get the blue box to the green goal to win. GOOD LUCK!', 'PLAY!');
+          sendStart('Tilt your phone to get the blue box to the green goal without touching a red box. GOOD LUCK!', 'PLAY!');
           setPosition({ x: 175, y: 0 });
         },
       },
